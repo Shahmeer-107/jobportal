@@ -38,10 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'accounts',
-    'news',
     'applicants',
-    
+    'news',
     'rest_framework',
+    'jobs',
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -125,26 +127,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
-
-NEWS_API_KEY = os.environ.get("NEWS_API_KEY")
-print(f"NEWS_API_KEY: {NEWS_API_KEY}")
-
-# api_key ="84849ba0feb9436d986acff93f2d10df" 
-# print(f"NEWS_API_KEY: {api_key}")
-
-
-
-# send email conformation
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'          # or your provider
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'your_email@gmail.com'
-EMAIL_HOST_PASSWORD = 'your_email_password_or_app_password'
