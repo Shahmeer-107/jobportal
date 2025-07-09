@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'news',
     'jobs',
     'django_filters',
+    
     'drf_yasg',  # Swagger documentation
     
 ]

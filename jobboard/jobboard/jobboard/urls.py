@@ -27,9 +27,9 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Your Project API",
+      title="Jobconnect API",
       default_version='v1',
-      description="API documentation using Swagger",
+      description="API documentation for Jobconnect, a job board platform.",
       terms_of_service="https://www.yoursite.com/policies/terms/",
       contact=openapi.Contact(email="youremail@example.com"),
       license=openapi.License(name="BSD License"),
