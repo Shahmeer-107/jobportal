@@ -24,7 +24,8 @@ class ApplyToJobView(APIView):
         except Job.DoesNotExist:
             return Response({"error": "Job not found"}, status=404)
 
-        if job.deadline and job.deadline < timezone.now():
+        if job.deadline and job.deadline < timezone.now().date():
+
             return Response({"error": "Deadline passed"}, status=400)
 
         if Application.objects.filter(applicant=request.user, job=job).exists():
@@ -36,7 +37,7 @@ class ApplyToJobView(APIView):
 
             send_mail(
                 subject="Application Submitted Successfully",
-                message=f"Dear {request.user.username},\n\nYou applied to: {job.title}.",
+                message=f"Dear {request.User.role},\n\nYou applied to: {job.title}.",
                 from_email="noreply@jobconnect.com",
                 recipient_list=[application.contact_email],
                 fail_silently=True,

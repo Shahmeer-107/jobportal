@@ -7,6 +7,8 @@ from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken, TokenError
 from django.contrib.auth import authenticate
 from django.utils import timezone
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError as DjangoValidationError
 import random
 
 from .models import User
@@ -163,7 +165,6 @@ class ForgotPasswordView(APIView):
         except User.DoesNotExist:
             return Response({'error': 'User with this email does not exist'}, status=404)
 
-
 class ResetPasswordView(APIView):
     permission_classes = [AllowAny]
 
@@ -175,12 +176,21 @@ class ResetPasswordView(APIView):
 
         try:
             user = User.objects.get(email=email)
+
             if user.otp != otp:
+                print("OTP:", user.otp)
                 return Response({'error': 'Invalid OTP'}, status=400)
 
             if user.otp_created_at and (timezone.now() - user.otp_created_at).seconds > 600:
                 return Response({'error': 'OTP expired'}, status=400)
 
+            # ✅ Validate password
+            try:
+                validate_password(new_password, user)
+            except DjangoValidationError as e:
+                return Response({'password_errors': e.messages}, status=400)
+
+            # ✅ Save new password
             user.set_password(new_password)
             user.otp = None
             user.otp_created_at = None
