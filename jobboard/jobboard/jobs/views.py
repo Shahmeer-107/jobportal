@@ -7,7 +7,7 @@ from .permissions import IsCompanyAndOwner
 class JobViewSet(viewsets.ModelViewSet):
     queryset = Job.objects.all()
     serializer_class = JobSerializer
-    # permission_classes = [IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
     filter_backends = [filters.SearchFilter]
     search_fields = ['title', 'company__username']

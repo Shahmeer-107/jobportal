@@ -2,6 +2,8 @@ from rest_framework.permissions import BasePermission
 
 class IsCompanyAndOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
+        print("Checking delete permission for:", obj.company, "==", request.user)
+
         return request.user.role == 'company' and obj.company == request.user
 
     def has_permission(self, request, view):
