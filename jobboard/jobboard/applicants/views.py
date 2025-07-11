@@ -35,13 +35,30 @@ class ApplyToJobView(APIView):
         if serializer.is_valid():
             application = serializer.save(applicant=request.user, job=job)
 
+            print("📨 Sending email to:", application.contact_email)
+
+
             send_mail(
-                subject="Application Submitted Successfully",
-                message=f"Dear {request.User.role},\n\nYou applied to: {job.title}.",
-                from_email="noreply@jobconnect.com",
-                recipient_list=[application.contact_email],
-                fail_silently=True,
-            )
+                subject="Your Job Application Has Been Successfully Submitted",
+                message=f"""
+Dear {application.full_name},
+
+Thank you for applying to the position of {job.title}.
+
+We have successfully received your application. Our recruitment team will carefully review your profile and contact you if your qualifications match our requirements.
+
+For further updates or instructions, please check your email regularly.
+
+If you have any questions, feel free to reply to this email.
+
+Best regards,  
+Sohail Shahzad  
+HR Department
+""",
+            from_email="sohailshahzad500@gmail.com",
+            recipient_list=[application.contact_email],
+            fail_silently=True,
+)
 
             return Response(ApplicationSerializer(application).data, status=201)
 

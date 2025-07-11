@@ -221,4 +221,25 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+
 ]
+SIMPLE_JWT = {
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_BLACKLIST_ENABLED': True,
+}
+
+# ✅ Email backend for sending real emails via Gmail
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# # ✅ Gmail SMTP server settings
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+
+# # ✅ Your Gmail address and app password
+# EMAIL_HOST_USER = 'shahmeerali3001@gmail.com'
+# EMAIL_HOST_PASSWORD = 'aggt wpvp xxeg vezy '
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
