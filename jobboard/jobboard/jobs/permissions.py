@@ -1,10 +1,18 @@
-from rest_framework.permissions import BasePermission
+from rest_framework.permissions import BasePermission, SAFE_METHODS
 
+# ✅ Only Companies can Create/Update/Delete their own jobs
 class IsCompanyAndOwner(BasePermission):
     def has_object_permission(self, request, view, obj):
-        print("Checking delete permission for:", obj.company, "==", request.user)
-
-        return request.user.role == 'company' and obj.company == request.user
+        return (
+            request.user.is_authenticated and
+            request.user.role == 'company' and
+            obj.company == request.user
+        )
 
     def has_permission(self, request, view):
-        return request.user.is_authenticated and request.user.role == 'company'
+        if request.method in SAFE_METHODS:
+            return True  # allow GET, HEAD, OPTIONS to everyone
+        return (
+            request.user.is_authenticated and
+            request.user.role == 'company'
+        )

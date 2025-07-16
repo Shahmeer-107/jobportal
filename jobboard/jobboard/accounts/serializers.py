@@ -1,7 +1,14 @@
 from rest_framework import serializers
 from .models import User
+from rest_framework import generics, permissions
+from django.core.mail import send_mail
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError as DjangoValidationError
+from applicants.serializers import ApplicationSerializer, ApplicantApplicationSummarySerializer
+from applicants.models import Application
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -26,10 +33,18 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    applications = serializers.SerializerMethodField()
+
     class Meta:
         model = User
-        fields = ['id', 'email', 'name', 'role']
+        fields = ['id', 'email', 'name', 'role','applications']
 
+    def get_applications(self, obj):
+        if obj.role == 'applicant':
+            apps = Application.objects.filter(applicant=obj)
+            return ApplicantApplicationSummarySerializer(apps, many=True).data
+
+        # return []
 
 
 
