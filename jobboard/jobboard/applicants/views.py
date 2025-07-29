@@ -63,3 +63,5 @@ HR Department
             return Response(ApplicationSerializer(application).data, status=201)
 
         return Response(serializer.errors, status=400)
+
+

@@ -23,3 +23,5 @@ class ApplicantApplicationSummarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
         fields = ['job_title', 'status', 'applied_at']  
+
+
