@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from .models import Application
+from .models import SavedJob
+from jobs.models import Job
 
 class ApplicationSerializer(serializers.ModelSerializer):
     # job_title = serializers.CharField(source='job.title', read_only=True)
@@ -24,4 +26,13 @@ class ApplicantApplicationSummarySerializer(serializers.ModelSerializer):
         model = Application
         fields = ['job_title', 'status', 'applied_at']  
 
+# jobs/serializers.py
 
+from rest_framework import serializers
+from .models import SavedJob
+
+class SavedJobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SavedJob
+        fields = '__all__'
+        read_only_fields = ['applicant']

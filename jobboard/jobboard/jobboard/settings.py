@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+    'celery',
 
     'applicants',
     'news',
@@ -242,4 +243,13 @@ SIMPLE_JWT = {
 # EMAIL_HOST_PASSWORD = 'aggt wpvp xxeg vezy '
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+from celery.schedules import crontab
 
+CELERY_BEAT_SCHEDULE = {
+    'delete-expired-saved-jobs-every-day': {
+        'task': 'jobs.tasks.delete_expired_saved_jobs',
+        'schedule': crontab(hour=12, minute=0),  # Every day at 12 PM
+    },
+}
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
