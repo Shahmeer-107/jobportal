@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'celery',
+    'django_celery_beat',
+
 
     'applicants',
     'news',
@@ -247,8 +249,8 @@ from celery.schedules import crontab
 
 CELERY_BEAT_SCHEDULE = {
     'delete-expired-saved-jobs-every-day': {
-        'task': 'jobs.tasks.delete_expired_saved_jobs',
-        'schedule': crontab(hour=12, minute=0),  # Every day at 12 PM
+        'task': 'applicants.tasks.delete_expired_saved_jobs',
+        'schedule': crontab(minute='*/5'),  # every 5 min
     },
 }
 CELERY_BROKER_URL = 'redis://localhost:6379/0'

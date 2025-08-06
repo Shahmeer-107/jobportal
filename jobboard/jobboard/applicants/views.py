@@ -81,19 +81,12 @@ class SavedJobCreateAPIView(generics.CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(applicant=self.request.user)
 
-# View Saved Jobs (GET)
+#
 class SavedJobListAPIView(generics.ListAPIView):
     serializer_class = SavedJobSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
-        # Delete expired saved jobs before returning
-        expired = SavedJob.objects.filter(
-            applicant=self.request.user,
-            job__deadline__lt=timezone.now()
-        )
-        expired.delete()
-
         return SavedJob.objects.filter(
             applicant=self.request.user,
             job__deadline__gte=timezone.now()
