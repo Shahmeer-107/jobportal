@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+from decouple import config
 import os
+
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -89,12 +92,30 @@ WSGI_APPLICATION = 'jobboard.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+DATABASE_URL = config("DATABASE_URL", default=None)
+
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.parse(DATABASE_URL)
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("POSTGRES_DB"),
+            "USER": config("POSTGRES_USER"),
+            "PASSWORD": config("POSTGRES_PASSWORD"),
+            "HOST": config("POSTGRES_HOST", default="localhost"),
+            "PORT": config("POSTGRES_PORT", default="5432"),
+        }
+    }
 
 
 # Password validation
@@ -133,6 +154,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -161,12 +185,12 @@ REST_FRAMEWORK = {
 # EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 # EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.office365.com')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'sohailshahzad500@gmail.com'              
-EMAIL_HOST_PASSWORD = 'ahat uiwz vqlb uqku'   
-DEFAULT_FROM_EMAIL = 'sohailshahzad500@gmail.com'
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')              
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') 
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='clientdesk@xloopdigital.com')
 
 
 
@@ -232,18 +256,6 @@ SIMPLE_JWT = {
     'TOKEN_BLACKLIST_ENABLED': True,
 }
 
-# ✅ Email backend for sending real emails via Gmail
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-# # ✅ Gmail SMTP server settings
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-
-# # ✅ Your Gmail address and app password
-# EMAIL_HOST_USER = 'shahmeerali3001@gmail.com'
-# EMAIL_HOST_PASSWORD = 'aggt wpvp xxeg vezy '
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 from celery.schedules import crontab
 
