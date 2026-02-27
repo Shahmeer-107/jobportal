@@ -21,6 +21,7 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'celery',
     'django_celery_beat',
+    "corsheaders",
 
 
     'applicants',
@@ -60,6 +62,8 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,6 +91,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'jobboard.wsgi.application'
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Database
@@ -185,12 +191,12 @@ REST_FRAMEWORK = {
 # EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 # EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = config('EMAIL_HOST', default='smtp.office365.com')
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')              
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') 
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='clientdesk@xloopdigital.com')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='sohailshahzad500@gmail.com')
 
 
 
@@ -264,6 +270,11 @@ CELERY_BEAT_SCHEDULE = {
         'task': 'applicants.tasks.delete_expired_saved_jobs',
         'schedule': crontab(minute='*/5'),  # every 5 min
     },
+    'close-expired-jobs-every-5-min': {
+        'task': 'applicants.tasks.close_expired_jobs',
+        'schedule': crontab(minute='*/5'),
+    },
+
 }
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'

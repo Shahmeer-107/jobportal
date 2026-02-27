@@ -9,6 +9,7 @@ class Application(models.Model):
     STATUS_CHOICES = [
         ('pending', 'Pending'),
         ('reviewed', 'Reviewed'),
+        ('shortlisted', 'Shortlisted'),
         ('rejected', 'Rejected'),
         ('hired', 'Hired'),
     ]
@@ -17,6 +18,7 @@ class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
 
     #  Professional info
+    profile_photo = models.ImageField(upload_to='profile_photos/', blank=True, null=True)
     full_name = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=20)
     contact_email = models.EmailField()

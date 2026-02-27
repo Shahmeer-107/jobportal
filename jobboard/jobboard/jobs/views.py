@@ -33,3 +33,29 @@ class JobViewSet(viewsets.ModelViewSet):
         jobs = Job.objects.filter(company=request.user)
         serializer = self.get_serializer(jobs, many=True)
         return Response(serializer.data)
+
+
+from rest_framework import generics, permissions
+from applicants.models import Application
+from applicants.serializers import ApplicationSerializer
+from jobs .permissions import IsCompanyAndOwnsJobApplication
+
+class CompanyApplicationsListAPIView(generics.ListAPIView):
+    serializer_class = ApplicationSerializer
+    permission_classes = [IsCompanyAndOwnsJobApplication]
+
+    def get_queryset(self):
+        # ✅ Only applications for jobs posted by this company
+        return Application.objects.filter(job__company=self.request.user).order_by("-applied_at")
+    
+
+
+
+class CompanyApplicationUpdateAPIView(generics.RetrieveUpdateAPIView):
+    serializer_class = ApplicationSerializer
+    permission_classes = [IsCompanyAndOwnsJobApplication]
+    lookup_field = "id"
+
+    def get_queryset(self):
+        # ✅ Only applications for this company's jobs
+        return Application.objects.filter(job__company=self.request.user)
