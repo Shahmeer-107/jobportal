@@ -11,6 +11,10 @@ class JobSerializer(serializers.ModelSerializer):
             'id',
             'title',
             'description',
+            'category',
+            'degree_required',
+            'company_full_name',
+            
             'job_type',
             'work_type',
             'experience_level',

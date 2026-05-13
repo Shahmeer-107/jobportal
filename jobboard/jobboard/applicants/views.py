@@ -5,12 +5,14 @@ from django.utils import timezone
 from django.core.mail import send_mail
 from jobs.models import Job
 from .models import Application
+from rest_framework import parsers
 from .serializers import ApplicationSerializer
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
 class ApplyToJobView(APIView):
     permission_classes = [IsAuthenticated]
+    parser_classes = [parsers.MultiPartParser, parsers.FormParser]
 
     @swagger_auto_schema(
         request_body=ApplicationSerializer,

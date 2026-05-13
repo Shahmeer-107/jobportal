@@ -33,6 +33,12 @@ class Job(models.Model):
     # Basic Info
     title = models.CharField(max_length=255)
     description = models.TextField(default='No description provided')
+    company_full_name  = models.CharField(max_length=255, blank=True)  # For external jobs without company FK
+
+    category = models.CharField(max_length=100, blank=True)  # Optional category field
+    degree_required = models.CharField(max_length=100, blank=True)  # Optional degree requirement field
+
+    tags = models.CharField(max_length=255, blank=True, help_text="Comma separated tags")  # Optional tags field
 
     # Job Details
     job_type = models.CharField(max_length=20, choices=JOB_TYPE_CHOICES, default='permanent')

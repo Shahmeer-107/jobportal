@@ -111,6 +111,7 @@ class LoginView(APIView):
             return Response({
                 "access": str(refresh.access_token),
                 "refresh": str(refresh),
+                "role": user.role,
             })
 
         return Response({"detail": "Invalid credentials or inactive account"}, status=status.HTTP_401_UNAUTHORIZED)

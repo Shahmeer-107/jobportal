@@ -4,9 +4,8 @@ from .models import SavedJob
 from jobs.models import Job
 
 class ApplicationSerializer(serializers.ModelSerializer):
-    # job_title = serializers.CharField(source='job.title', read_only=True)
-
-
+    job_id = serializers.IntegerField(source="job.id", read_only=True)
+    job_title = serializers.CharField(source="job.title", read_only=True)
 
     
     class Meta:
