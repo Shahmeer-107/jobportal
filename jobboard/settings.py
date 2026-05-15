@@ -31,7 +31,10 @@ SECRET_KEY = 'django-insecure-n6^hdo$+amo=9^mzvp_6vw4twpmf2!^%a6ooxr5^$ij*r*+x_%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    'https://jobboard-api.azurewebsites.net',
+]
 
 
 # Application definition
@@ -285,6 +288,6 @@ CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 
-# CSRF_COOKIE_SECURE = True
-# SESSION_COOKIE_SECURE = True
-# SECURE_SSL_REDIRECT = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
