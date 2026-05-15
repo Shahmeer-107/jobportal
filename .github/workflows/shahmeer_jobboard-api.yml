@@ -38,10 +38,21 @@ jobs:
         with:
           name: python-app
           path: |
-            .
-            !venv/
-            !antenv/
-            !.git/
+             accounts/
+             applicants/
+             jobs/
+             news/
+             media/
+             jobboard/
+             manage.py
+             requirements.txt
+             startup.sh
+             README.md
+             celerybeat-schedule
+             __init__.py
+             !venv/
+             !__pycache__/
+             !.git/
             
 
       # 🚫 Opting Out of Oryx Build
