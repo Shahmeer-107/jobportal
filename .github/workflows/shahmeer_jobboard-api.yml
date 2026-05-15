@@ -39,7 +39,10 @@ jobs:
           name: python-app
           path: |
             .
+            !venv/
             !antenv/
+            !.git/
+            
 
       # 🚫 Opting Out of Oryx Build
       # If you prefer to disable the Oryx build process during deployment, follow these steps:
@@ -73,4 +76,5 @@ jobs:
         with:
           app-name: 'jobboard-api'
           slot-name: 'Production'
+          package: .
           
