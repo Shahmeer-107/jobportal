@@ -31,12 +31,7 @@ SECRET_KEY = 'django-insecure-n6^hdo$+amo=9^mzvp_6vw4twpmf2!^%a6ooxr5^$ij*r*+x_%
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "shahmeer-jobboard-api-c3gqdycafwbbfedg.westeurope-01.azurewebsites.net",
-    ".azurewebsites.net",
-    "localhost",
-    "127.0.0.1",
-]
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
