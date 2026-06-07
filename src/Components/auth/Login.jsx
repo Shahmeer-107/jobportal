@@ -28,8 +28,12 @@ export default function Login() {
     setLoading(true);
 
     try {
+      console.log("FORM DATA:", form);
+
       const res = await loginUser(form);
+
       console.log("LOGIN RESPONSE:", res);
+
 
       localStorage.setItem("access_token", res.access);
       localStorage.setItem("refresh_token", res.refresh);
@@ -42,6 +46,7 @@ export default function Login() {
     } catch (err) {
       setError("Invalid email or password. Please check your credentials.");
       console.error("LOGIN ERROR:", err);
+
     } finally {
       setLoading(false);
     }
