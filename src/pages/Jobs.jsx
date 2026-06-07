@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getAllJobs } from "../services/companyApi";
+import { getAllJobs } from "../services/companyAPi";
 import {
   Briefcase, Clock, DollarSign, MapPin, Search,
   Bookmark, ChevronDown, ChevronRight, SlidersHorizontal,
