@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../../services/accountapi";
 import { useNavigate, Link } from "react-router-dom";
-import { Mail, Lock, Eye, EyeOff, Briefcase } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff, Briefcase, UserCircle, UserRound, User2Icon } from "lucide-react";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -53,14 +53,19 @@ export default function Login() {
   };
 
   return (
+
+    
     <div className="min-h-screen bg-[#f4fbfa] flex items-center justify-center px-4 py-10 font-sans">
       <div className="w-full max-w-5xl bg-white rounded-[28px] shadow-2xl border border-gray-100 overflow-hidden grid grid-cols-1 lg:grid-cols-2 animate-[fadeIn_0.5s_ease-out]">
         
         {/* Left Side */}
+
+       
         <div className="hidden lg:flex relative bg-gradient-to-br from-[#0f172a] via-[#12332f] to-[#2bb5a0] p-10 flex-col justify-between text-white overflow-hidden">
           <div className="absolute -top-20 -right-20 w-60 h-60 bg-white/10 rounded-full blur-2xl" />
           <div className="absolute bottom-10 -left-16 w-52 h-52 bg-[#2bb5a0]/30 rounded-full blur-2xl" />
 
+           
           <div className="relative z-10">
             <div className="w-14 h-14 bg-white/15 backdrop-blur rounded-2xl flex items-center justify-center mb-8">
               <Briefcase size={28} />
@@ -92,13 +97,17 @@ export default function Login() {
             </div>
           </div>
         </div>
+        
 
         {/* Right Side */}
         <div className="p-7 sm:p-10 lg:p-12">
           <div className="mb-8">
             <div className="w-14 h-14 bg-[#eef7f5] rounded-2xl flex items-center justify-center mb-5 shadow-sm">
-              <Lock size={26} className="text-[#2bb5a0]" />
+              <UserRound size={26} className="text-[#2bb5a0]" />
             </div>
+            
+
+            
 
             <h2 className="text-3xl font-extrabold text-gray-900 tracking-tight">
               Welcome Back

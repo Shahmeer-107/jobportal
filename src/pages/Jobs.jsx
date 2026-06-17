@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getAllJobs } from "../services/companyAPi";
+import { getAllJobs } from "../services/publicapi";
 import {
   Briefcase, Clock, DollarSign, MapPin, Search,
   Bookmark, ChevronDown, ChevronRight, SlidersHorizontal,
@@ -138,20 +138,26 @@ export default function JobsPage() {
     set((p) => (p.includes(val) ? p.filter((x) => x !== val) : [...p, val]));
 
   useEffect(() => {
-    const fetchJobs = async () => {
-      setLoading(true); setError(null);
-      try {
-        const data = await getAllJobs();
-        setJobs(data.results || data);
-      } catch (err) {
-        console.error(err);
-        setError("Failed to load jobs.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchJobs();
-  }, []);
+  const fetchJobs = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+
+      const data = await getAllJobs();
+
+      console.log("JOBS DATA:", data);
+
+      setJobs(Array.isArray(data) ? data : data?.results || []);
+    } catch (err) {
+      console.log("FULL ERROR:", err.response?.data || err.message);
+      setError("Failed to load jobs.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchJobs();
+}, []);
 
   const cats  = [...new Set(jobs.map((j) => j.category).filter(Boolean))];
   const types = [...new Set(jobs.map((j) => j.job_type).filter(Boolean))];

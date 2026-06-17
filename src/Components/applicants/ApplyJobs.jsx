@@ -48,20 +48,77 @@ export default function ApplyJobs() {
       <h1 className="text-3xl font-extrabold mb-6">Apply for Job</h1>
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <input name="full_name" placeholder="Full Name" required onChange={handleChange} className={inputClass} />
-        <input name="phone_number" placeholder="Phone Number" required onChange={handleChange} className={inputClass} />
-        <input type="email" name="contact_email" placeholder="Contact Email" required onChange={handleChange} className={inputClass} />
-        <input name="city" placeholder="City" onChange={handleChange} className={inputClass} />
-        <input name="github_url" placeholder="GitHub URL" onChange={handleChange} className={inputClass} />
+        <input
+          name="full_name"
+          placeholder="Full Name"
+          required
+          minLength={1}
+          maxLength={100}
+          value={form.full_name}
+          onChange={handleChange}
+          className={inputClass}
+        />
+        <input
+          name="phone_number"
+          placeholder="Phone Number"
+          required
+          minLength={1}
+          maxLength={20}
+          value={form.phone_number}
+          onChange={handleChange}
+          className={inputClass}
+        />
+        <input
+          type="email"
+          name="contact_email"
+          placeholder="Contact Email"
+          required
+          minLength={1}
+          maxLength={254}
+          value={form.contact_email}
+          onChange={handleChange}
+          className={inputClass}
+        />
+        <input
+          name="city"
+          placeholder="City"
+          maxLength={50}
+          value={form.city}
+          onChange={handleChange}
+          className={inputClass}
+        />
+        <input
+          name="github_url"
+          type="url"
+          placeholder="GitHub URL"
+          maxLength={200}
+          value={form.github_url}
+          onChange={handleChange}
+          className={inputClass}
+        />
+
+        <input type="hidden" name="status" value={form.status} />
 
         <div>
           <label className="text-sm font-bold">Resume</label>
-          <input type="file" name="resume" onChange={handleChange} className={inputClass} />
+          <input
+            type="file"
+            name="resume"
+            accept=".pdf,.doc,.docx"
+            onChange={handleChange}
+            className={inputClass}
+          />
         </div>
 
         <div>
           <label className="text-sm font-bold">Profile Photo</label>
-          <input type="file" name="profile_photo" onChange={handleChange} className={inputClass} />
+          <input
+            type="file"
+            name="profile_photo"
+            accept="image/*"
+            onChange={handleChange}
+            className={inputClass}
+          />
         </div>
 
         <button

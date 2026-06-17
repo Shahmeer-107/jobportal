@@ -4,10 +4,10 @@ import PublicLayout from "../layouts/PublicLayout";
 
 import Home from "../pages/Home";
 import Jobs from "../pages/Jobs";
-import About from "../pages/About";
+import  AboutPage from "../pages/About";
 import Contact from "../pages/Contact";
 import NotFound from "../pages/NotFound";
-// import Jobdetail from "../pages/Jobdetails";
+import JobDetailPage from "../pages/Jobdetails";
 
 import Register from "../Components/auth/Register";
 import RegisterApplicant from "../Components/auth/RegisterApplicant";
@@ -30,7 +30,10 @@ import CompanyDashboard from "../Components/company/CompanyDashboard";
 import CompanyHome from "../Components/company/CompanyHome";
 import CreateJob from "../Components/company/CreateJob";
 import MyJobs from "../Components/company/MyJobs";
+import ViewJob from "../Components/company/ViewJob";
+import EditJobs from "../Components/company/EditJobs";
 import Applications from "../Components/company/Applications";
+import ViewApplication from "../Components/company/ViewApplication";
 import CompanyProfile from "../Components/company/CompanyProfile";
 
 
@@ -41,9 +44,9 @@ function AppRoutes() {
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/jobs" element={<Jobs />} />
-          <Route path="/about" element={<About />} />
+         <Route path="/jobs/:id" element={<JobDetailPage />} />
           <Route path="/contact" element={<Contact />} />
-          {/* <Route path="jobs/:id" element={<Jobdetail />} /> */}
+          <Route path="/about" element={<AboutPage />} /> 
         </Route>
 
          <Route path="/register" element={<Register />} />
@@ -78,7 +81,10 @@ function AppRoutes() {
             <Route index element={<CompanyHome />} />
             <Route path="create-job" element={<CreateJob />} />
             <Route path="my-jobs" element={<MyJobs />} />
+            <Route path="view-job/:jobId" element={<ViewJob />} />
+            <Route path="edit-job/:jobId" element={<EditJobs />} />
             <Route path="applications" element={<Applications />} />
+            <Route path="applications/:applicationId" element={<ViewApplication />} />
             <Route path="profile" element={<CompanyProfile />} />
           </Route>
 

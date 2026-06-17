@@ -1,12 +1,25 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { getJobById, getAllJobs } from "../services/companyAPi";
+import { getJobById, getAllJobs } from "../services/publicapi";
 import {
-  Briefcase, Clock, DollarSign, MapPin, Bookmark,
-  Check, Facebook, Twitter, Linkedin, Send, ArrowLeft,
-  CalendarDays, GraduationCap, Building2,
+  Briefcase,
+  Clock,
+  DollarSign,
+  MapPin,
+  Bookmark,
+  Check,
+  Send,
+  ArrowLeft,
+  CalendarDays,
+  GraduationCap,
+  Building2,
 } from "lucide-react";
 
+import {
+  FaFacebookF,
+  FaTwitter,
+  FaLinkedinIn
+} from "react-icons/fa";
 /* ─── Helpers ────────────────────────────────────────────────────────────── */
 function timeAgo(dateStr) {
   if (!dateStr) return "Recently";
@@ -324,9 +337,18 @@ export default function JobDetailPage() {
             <div className="mt-7 pt-5 border-t border-gray-50 flex items-center gap-3">
               <p className="text-[12px] font-bold uppercase tracking-widest text-gray-400">Share:</p>
               {[
-                { icon:<Facebook size={13}/>, label:"Facebook" },
-                { icon:<Twitter size={13}/>, label:"Twitter" },
-                { icon:<Linkedin size={13}/>, label:"LinkedIn" },
+                {
+                  icon: <FaFacebookF size={13} />,
+                  label: "Facebook",
+                },
+                {
+                  icon: <FaTwitter size={13} />,
+                  label: "Twitter",
+                },
+                {
+                  icon: <FaLinkedinIn size={13} />,
+                  label: "LinkedIn",
+                },
               ].map(({ icon, label }) => (
                 <a key={label} href="#" title={label}
                   className="w-8 h-8 rounded-xl border border-gray-200 bg-gray-50 flex items-center justify-center text-gray-400 hover:text-[#2bb5a0] hover:border-[#2bb5a0] hover:bg-[#f0faf8] transition-all">
