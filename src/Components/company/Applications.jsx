@@ -11,6 +11,14 @@ const statusStyles = {
   hired: "bg-[#f0faf8] text-[#2bb5a0] border-[#2bb5a0]/20",
 };
 
+const statusDot = {
+  pending: "bg-amber-500",
+  reviewed: "bg-blue-500",
+  shortlisted: "bg-emerald-500",
+  rejected: "bg-red-500",
+  hired: "bg-[#2bb5a0]",
+};
+
 export default function Applications() {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -70,16 +78,17 @@ export default function Applications() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search by candidate, job title, or email…"
-              className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-10 py-3 text-sm text-slate-900 outline-none transition focus:border-[#2bb5a0] focus:ring-2 focus:ring-[#2bb5a0]/10"
+              className="w-full rounded-2xl border border-slate-200 bg-slate-50 px-10 py-3 text-sm text-slate-900 outline-none transition focus:border-[#2bb5a0] focus:bg-white focus:ring-2 focus:ring-[#2bb5a0]/10"
             />
           </div>
-          <div className="text-sm text-slate-500">
-            <span className="font-semibold text-slate-900">{filtered.length}</span> application{filtered.length !== 1 ? "s" : ""}
+          <div className="flex items-center justify-start sm:justify-end gap-1.5 text-sm text-slate-500 whitespace-nowrap">
+            <span className="font-semibold text-slate-900">{filtered.length}</span>
+            application{filtered.length !== 1 ? "s" : ""}
           </div>
         </div>
         {jobId && (
-          <div className="mt-4 flex items-center gap-2 rounded-3xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
-            <Briefcase size={14} className="text-[#2bb5a0]" />
+          <div className="mt-4 flex items-center gap-2 rounded-2xl border border-[#2bb5a0]/20 bg-[#f0faf8] px-4 py-3 text-sm text-slate-600">
+            <Briefcase size={14} className="text-[#2bb5a0] shrink-0" />
             Filtering by job ID <span className="font-semibold text-slate-900">{jobId}</span>
           </div>
         )}
@@ -113,7 +122,7 @@ export default function Applications() {
       {/* Empty */}
       {!loading && !error && filtered.length === 0 && (
         <div className="rounded-3xl border border-slate-200 bg-white p-12 text-center shadow-sm">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-3xl bg-slate-50 text-slate-400">
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-3xl bg-[#f0faf8] text-[#2bb5a0]">
             <Mail size={22} />
           </div>
           <p className="text-slate-700 text-sm font-semibold">No applications found.</p>
@@ -125,13 +134,14 @@ export default function Applications() {
       {!loading && !error && filtered.length > 0 && (
         <div className="space-y-3">
           {filtered.map((app) => (
-            <div key={app.id}
-              className="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-md transition-all px-5 py-4">
-
+            <div
+              key={app.id}
+              className="bg-white rounded-3xl border border-slate-200 shadow-sm hover:border-[#2bb5a0]/30 hover:shadow-md transition-all px-5 py-4"
+            >
               <div className="flex items-start justify-between gap-4 flex-wrap">
                 <div className="flex items-start gap-3.5 min-w-0">
                   {/* Avatar */}
-                  <div className="w-11 h-11 rounded-3xl bg-[#f0faf8] flex items-center justify-center shrink-0 overflow-hidden">
+                  <div className="w-11 h-11 rounded-3xl bg-[#f0faf8] flex items-center justify-center shrink-0 overflow-hidden ring-1 ring-[#2bb5a0]/10">
                     {app.profile_photo ? (
                       <img src={app.profile_photo} alt={app.full_name} className="w-full h-full object-cover" />
                     ) : (
@@ -142,19 +152,25 @@ export default function Applications() {
                   </div>
                   <div className="min-w-0">
                     <h3 className="text-[14px] font-extrabold text-slate-900 truncate">{app.full_name}</h3>
-                    <p className="text-[12px] text-[#2bb5a0] font-bold mt-0.5">{app.job_title}</p>
+                    <p className="text-[12px] text-[#2bb5a0] font-bold mt-0.5 truncate">{app.job_title}</p>
                   </div>
                 </div>
 
-                {/* Status select */}
-                <div className="flex items-center gap-2">
-                  <Link to={`/company/dashboard/applications/${app.id}`}
-                    className="w-9 h-9 rounded-xl border border-slate-200 text-slate-500 hover:border-[#2bb5a0] hover:text-[#2bb5a0] flex items-center justify-center transition-all"
+                {/* Status + view */}
+                <div className="flex items-center gap-2 shrink-0">
+                  <Link
+                    to={`/company/dashboard/applications/${app.id}`}
+                    className="w-9 h-9 rounded-xl border border-slate-200 text-slate-500 hover:border-[#2bb5a0] hover:text-[#2bb5a0] hover:bg-[#f0faf8] flex items-center justify-center transition-all"
                     title="View Application"
                   >
                     <Eye size={14} />
                   </Link>
-                  <span className={`text-[12px] font-bold uppercase tracking-wide px-3 py-1.5 rounded-full border ${statusStyles[app.status] || "bg-slate-50 text-slate-500 border-slate-200"}`}>
+                  <span
+                    className={`inline-flex items-center gap-1.5 text-[12px] font-bold uppercase tracking-wide px-3 py-1.5 rounded-full border ${
+                      statusStyles[app.status] || "bg-slate-50 text-slate-500 border-slate-200"
+                    }`}
+                  >
+                    <span className={`h-1.5 w-1.5 rounded-full ${statusDot[app.status] || "bg-slate-400"}`} />
                     {app.status}
                   </span>
                 </div>
@@ -175,14 +191,22 @@ export default function Applications() {
                   </span>
                 )}
                 {app.resume && (
-                  <a href={app.resume} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-[#2bb5a0] font-bold hover:underline">
+                  <a
+                    href={app.resume}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-[#2bb5a0] font-bold hover:underline"
+                  >
                     <FileText size={12} /> Resume
                   </a>
                 )}
                 {app.github_url && (
-                  <a href={app.github_url} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-[#2bb5a0] font-bold hover:underline">
+                  <a
+                    href={app.github_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-[#2bb5a0] font-bold hover:underline"
+                  >
                     <Link2 size={12} /> GitHub
                   </a>
                 )}

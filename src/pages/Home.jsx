@@ -291,8 +291,8 @@ export default function Home() {
         <InfiniteLogoCarousel />
       </section>
 
-      {/* gradient bridge: dark → light */}
-      <div className="h-16" style={{ background: "linear-gradient(to bottom, #060b18, #f5f7fa)" }} />
+      {/* gradient bridge: dark → light (slim, no muddy band) */}
+      <div className="h-3" style={{ background: "linear-gradient(to bottom, #060b18, #f5f7fa)" }} />
 
       {/* ══ RECENT JOBS ═══════════════════════════════════════════════════ */}
       <section className="py-14" style={{ backgroundColor: "#f5f7fa" }}>
@@ -358,8 +358,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* gradient bridge: light → dark */}
-      <div className="h-16" style={{ background: "linear-gradient(to bottom, #f5f7fa, #0a0f1e)" }} />
+      {/* gradient bridge: light → dark (slim, no muddy band) */}
+      <div className="h-3" style={{ background: "linear-gradient(to bottom, #f5f7fa, #0a0f1e)" }} />
 
       {/* ══ GOOD LIFE BANNER ══════════════════════════════════════════════ */}
       <section className="py-16" style={{ backgroundColor: "#0a0f1e" }}>
@@ -448,8 +448,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* gradient bridge: dark → white */}
-      <div className="h-16" style={{ background: "linear-gradient(to bottom, #0a0f1e, #ffffff)" }} />
+      {/* gradient bridge: dark → white (slim, no muddy band) */}
+      <div className="h-3" style={{ background: "linear-gradient(to bottom, #0a0f1e, #ffffff)" }} />
 
       {/* ══ TESTIMONIALS ══════════════════════════════════════════════════ */}
       <section className="bg-white py-16">

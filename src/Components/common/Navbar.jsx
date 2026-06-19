@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
-import { BriefcaseBusiness, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import logo from "../../assets/job-nexus-logo.png";
 
 function Navbar() {
   const [open, setOpen] = useState(false);
@@ -14,12 +15,14 @@ function Navbar() {
 
   return (
     <nav className="fixed left-0 top-0 z-50 w-full border-b border-white/10 bg-[#0a0f1e]/95 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <Link to="/" className="flex items-center gap-2 text-white">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2bb5a0]/15 text-[#2bb5a0]">
-            <BriefcaseBusiness size={24} />
-          </div>
-          <span className="text-xl font-bold tracking-tight">Job Portal</span>
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
+        <Link to="/" className="flex items-center gap-2.5 text-white">
+          <img
+            src={logo}
+            alt="Job-Nexus Logo"
+            className="h-9 w-9 object-contain "
+          />
+          <span className="text-xl font-bold tracking-tight">Job-Nexus</span>
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">

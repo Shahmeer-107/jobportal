@@ -46,7 +46,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <section className="bg-black pt-10 pb-12 text-center">
+      <section className="bg-black pt-32 pb-12 text-center">
         <h1 className="text-5xl font-extrabold text-white tracking-tight">
           Contact Us
         </h1>

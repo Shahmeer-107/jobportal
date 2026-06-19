@@ -100,11 +100,19 @@ export default function Login() {
         
 
         {/* Right Side */}
-        <div className="p-7 sm:p-10 lg:p-12">
-          <div className="mb-8">
-            <div className="w-14 h-14 bg-[#eef7f5] rounded-2xl flex items-center justify-center mb-5 shadow-sm">
+        <div className="p-7 sm:p-10 lg:p-12 relative">
+          <div className="flex items-center justify-between mb-6">
+            <div className="w-14 h-14 bg-[#eef7f5] rounded-2xl flex items-center justify-center shadow-sm">
               <UserRound size={26} className="text-[#2bb5a0]" />
             </div>
+            <Link
+              to="/"
+              className="text-sm font-semibold text-[#2bb5a0] border border-[#2bb5a0] px-4 py-2 rounded-2xl hover:bg-[#effdfb] transition"
+            >
+              Back to Home
+            </Link>
+          </div>
+          <div className="mb-2">
             
 
             

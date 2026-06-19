@@ -154,7 +154,7 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white font-sans">
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <section className="bg-black pt-10 pb-12 text-center">
+      <section className="bg-black pt-32 pb-12 text-center">
         <h1 className="text-5xl font-extrabold text-white tracking-tight">
           About Us
         </h1>
