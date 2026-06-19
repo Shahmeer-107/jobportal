@@ -54,7 +54,7 @@ For further updates or instructions, please check your email regularly.
 If you have any questions, feel free to reply to this email.
 
 Best regards,  
-Sohail Shahzad  
+Job-Nexus
 HR Department
 """,
             from_email="sohailshahzad500@gmail.com",

@@ -20,43 +20,59 @@ def fetch_news(request):
 
 
 
-# import requests
-# from datetime import date, timedelta
-# from jobs.models import Job
-# from django.contrib.auth import get_user_model
 
-# # Get the user (company) who will own these jobs
-# User = get_user_model()
-# company = User.objects.get(email="shahmeershaami110+3@gmail.com")
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+import requests
+from datetime import date, timedelta
+from django.contrib.auth import get_user_model
+from jobs.models import Job
 
-# # Remotive API URL
-# url = "https://remotive.com/api/remote-jobs"
-# response = requests.get(url)
-# data = response.json()
 
-# # Loop through first 20 jobs only
-# for job in data["jobs"][:20]:
-#  Job.objects.create(
-#     title=job.get("title", "No Title")[:255],
-#     description=job.get("description", "No Description"),
-#     company_full_name=job.get("company_name", "External Company")[:255],
-#     category=job.get("category", "")[:100],
-#     degree_required="Bachelor"[:100],
-#     tags=",".join(job.get("tags", []))[:255],
-#     job_type="permanent",
-#     work_type="remote",
-#     experience_level="mid",
-#     salary_min=500,
-#     salary_max=2000,
-#     currency="USD"[:10],
-#     skills=",".join(job.get("tags", [])),  # TextField, safe
-#     responsibilities=job.get("description", ""),  # TextField, safe
-#     location=job.get("candidate_required_location", "")[:255],
-#     deadline=date.today() + timedelta(days=30),
-#     company=company,
-#     status="open",
-#     source="external",
-#     external_id=str(job.get("id"))[:255],
-# )
+@api_view(["GET"])
+def fetch_remotive_jobs(request):
 
-# print("✅ 5 jobs successfully added to your database!")
+    User = get_user_model()
+
+    company = User.objects.get(
+        email="shahmeershaami110+3@gmail.com"
+    )
+
+    url = "https://remotive.com/api/remote-jobs"
+
+    response = requests.get(url)
+    data = response.json()
+
+    count = 0
+
+    for job in data["jobs"][:5]:
+
+        Job.objects.create(
+            title=job.get("title", "No Title")[:255],
+            description=job.get("description", ""),
+            company_full_name=job.get("company_name", "")[:255],
+            category=job.get("category", "")[:100],
+            degree_required="Bachelor",
+            job_type="permanent",
+            work_type="remote",
+            experience_level="mid",
+            salary_min=500,
+            salary_max=2000,
+            currency="USD",
+            skills=",".join(job.get("tags", [])),
+            responsibilities=job.get("description", ""),
+            location=job.get(
+                "candidate_required_location", ""
+            )[:255],
+            deadline=date.today() + timedelta(days=30),
+            company=company,
+            status="open",
+            source="external",
+            external_id=str(job.get("id")),
+        )
+
+        count += 1
+
+    return Response({
+        "message": f"{count} jobs imported successfully"
+    })

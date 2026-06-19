@@ -1,6 +1,24 @@
 from django.contrib import admin
 from .models import User
-from .models import CompanyProfile
 
-admin.site.register(User)
-admin.site.register(CompanyProfile)
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "email",
+        "role",
+        "is_active",
+        "is_staff",
+    )
+
+    list_filter = (
+        "role",
+        "is_active",
+        "is_staff",
+    )
+
+    search_fields = (
+        "email",
+    )
+
+    ordering = ("-id",)

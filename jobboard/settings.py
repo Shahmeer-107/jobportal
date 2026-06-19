@@ -200,7 +200,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')              
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') 
-DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='sohailshahzad500@gmail.com')
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL', default='shahmeerali3001@gmail.com')
 
 
 
