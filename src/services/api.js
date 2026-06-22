@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api",
+  baseURL: "https://api-job-portal-evh0hdcrh3bbb4d6.centralus-01.azurewebsites.net/api",
 });
 
 api.interceptors.request.use(
