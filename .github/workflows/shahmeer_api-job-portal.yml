@@ -73,4 +73,6 @@ jobs:
         with:
           app-name: 'api-job-portal'
           slot-name: 'Production'
+      - name: Run Django migrations
+        run: python manage.py migrate  
           
